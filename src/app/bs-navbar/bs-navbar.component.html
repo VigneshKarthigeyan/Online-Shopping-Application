@@ -1,0 +1,45 @@
+<!-- <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"> -->
+<nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
+  <!-- Brand -->
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['']">VK</a>
+  <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['shopping-cart']">
+          Shopping Cart
+          <span class="badge badge-pill badge-info" *ngIf="cart$ | async as cart">
+            {{ cart.totalItemsCount }}
+          </span>
+        </a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <ng-template #anonymoususer>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['login']">Login</a>
+        </li>
+      </ng-template>
+
+      <li *ngIf="appUser;else anonymoususer" ngbDropdown class="nav-item justify-content-end dropdown" style="cursor: pointer;">
+        <a ngbDropdownToggle class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">
+          {{appUser.name || appUser.email}}
+        </a>
+        <div ngbDropdownMenu class="dropdown-menu">
+          <a ngbDropdownItem class="dropdown-item" [routerLink]="['my','orders']">My Orders</a>
+          <ng-container *ngIf="appUser.isAdmin">
+            <a ngbDropdownItem class="dropdown-item" [routerLink]="['admin','orders']">Manage Orders</a>
+            <a ngbDropdownItem class="dropdown-item" [routerLink]="['admin','products']">Manage Products</a>
+          </ng-container>
+          <a ngbDropdownItem class="dropdown-item" (click)="logout()">Log out</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  </div>
+</nav>

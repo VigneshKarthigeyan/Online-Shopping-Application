@@ -1,0 +1,7 @@
+/* a:focus{
+  color: white;
+  background-color: #007bff;
+} */
+.card-footer button{
+  cursor: pointer;
+}

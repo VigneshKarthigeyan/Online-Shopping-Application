@@ -1,0 +1,25 @@
+<!-- <p>shopping-cart-summary works!</p> -->
+<div class="card" style="width: 100%">
+  <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+  <div class="card-body" *ngIf="cart$ | async as cart">
+    <h4 class="card-title">Order Summary</h4>
+    <p class="card-text">You have {{cart.totalItemsCount}} items in your shopping cart</p>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" *ngFor="let item of cart.items">
+        <ng-template [ngIf]="item.quantity!==0">
+          {{item.quantity}} x {{item.title}}
+        <div class="float-right">
+          {{item.totalPrice|currency:'INR':'symbol'}}
+        </div>
+        </ng-template>
+      </li>
+      <li class="list-group-item font-weight-bold">
+        Total
+        <div class="float-right">
+          {{cart.totalPrice|currency:'INR':'symbol'}}
+        </div>
+      </li>
+    </ul>
+    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+  </div>
+</div>
